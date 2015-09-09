@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	
+<mapper namespace="com.guql.cy.vo.QuestionVo">
+    <select id="findAll" resultType="com.guql.cy.vo.QuestionVo">
+        select * from cy_enjoy_t order by releasedate desc,releasetime desc;
+    </select>
+    
+    <select id="findById" resultType="com.guql.cy.vo.QuestionVo" parameterType="Integer">
+        select * from cy_enjoy_t where id = #{id}
+    </select>
+</mapper>

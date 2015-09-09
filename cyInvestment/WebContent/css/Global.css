@@ -1,0 +1,288 @@
+html,body {
+	width:100%;
+	font-family: "宋体";
+	font-size: 14px;
+	line-height: 2em;
+	font-weight: normal;
+	color: #7B7B7B;
+	margin: 0 auto;
+	text-align: center;
+	background-color: #FFF;
+}
+img
+{
+    border:none;
+}
+.Container {
+	width:952px;
+	margin:0 auto;
+	padding-left: 24px;
+	padding-right: 24px;
+	text-align:left;
+}
+.Header 
+{
+	padding-bottom: 20px;
+}
+/*
+.Header 
+{
+	padding-top:26px;
+	padding-bottom: 20px;
+}
+*/
+.Header .logo{
+	padding-left:16px;
+	padding-right:16px;
+	display:block;
+}
+.Header .nav{
+	padding-top:0px;
+	padding-bottom:14px;
+	padding-left:16px;
+	padding-right:16px;
+	display:block;
+}
+.Header .menu
+{
+	margin-left:68px;
+	cursor:hand;
+}
+
+.Footer 
+{
+	text-align: center;
+	border-top-width: 4px;
+	border-top-style: solid;
+	border-top-color: #f7f7f7;
+	padding-top:12px;
+	color:#D8D8D8;
+	font-weight:bolder;
+	margin-top:0px;
+}
+.Footer2
+{
+    padding-left:252px;
+	text-align: center;
+	padding-top:12px;
+	color:#D8D8D8;
+	font-weight:bolder;
+	margin-top:0px;
+}
+
+a:link.FooterLink,a:visited.FooterLink
+{
+    text-decoration:none;
+	color:#D8D8D8;
+}
+a:hover.FooterLink,a:active.FooterLink 
+{
+    text-decoration:none;
+	color:#D8D8D8;
+}
+a:link,a:visited
+{
+    text-decoration:none;
+	color:#7B7B7B;
+}
+a:hover,a:active
+{
+    text-decoration:none;
+	color:#0D3956;
+}
+a:link.logout,a:visited.logout
+{
+    text-decoration:none;
+	color:#7B7B7B;
+}
+a:hover.logout,a:active.logout
+{
+    text-decoration:none;
+	color:#9B0332;
+}
+
+.txtSearch {
+	border:1px #F3F3F3 solid;
+	color:#7B7B7B;
+	font-size:12px;
+	width:140px;
+	height:12px;
+	margin-bottom:-5px;
+	background-color:#FFF;
+}
+* html .txtSearch {
+	border:1px #F3F3F3 solid;
+	color:#7B7B7B;
+	font-size:12px;
+	width:140px;
+	height:12px;
+	margin-bottom:6px;
+	background-color:#FFF;
+}
+*+html .txtSearch {
+	border:1px #F3F3F3 solid;
+	color:#7B7B7B;
+	font-size:12px;
+	width:140px;
+	height:12px;
+	margin-bottom:0px;
+	background-color:#FFF;
+}
+.left {
+	float:left;
+	width:226px;
+	background-color:#CBECFD;
+}
+
+.center {
+    float:left;
+	padding-left:26px;
+	padding-right:26px;
+	width:400px;
+}
+
+.right 
+{
+    float:left;
+    width:270px;
+}
+
+.txtInfo{
+	border:1px #A3D5EE solid;
+	color:#7B7B7B;
+	font-size:12px;
+	width:120px;
+	padding-left:6px;
+	height:16px;
+	background-color:#FFF;
+	margin-top:6px;
+}
+
+/*+html .txtInfo{
+	border:1px #A3D5EE solid;
+	color:#7B7B7B;
+	font-size:12px;
+	width:120px;
+	padding-left:6px;
+	height:16px;
+	background-color:#FFF;
+	margin-top:6px;
+}*/
+
+.txtSelectInfo{
+	width:128px;
+	color:#0C3A54;
+	margin-top:6px;
+	background-color:#FFF;
+}
+/** html .txtSelectInfo{
+	width:128px;
+	color:#0C3A54;
+	margin-top:6px;
+	background-color:#FFF;
+}
+*+html .txtSelectInfo{
+	width:128px;
+	color:#0C3A54;
+	margin-top:0px;
+	background-color:#FFF;
+}*/
+/* about */
+.SubNav
+{
+	float:left;
+	width:226px;
+	background-color:#CBECFD;
+}
+.Content
+{
+    float:left;
+    padding-left:24px;
+	width:676px;
+}
+.page
+{
+    display:none;
+	padding-left:26px;
+	padding-right:16px;
+	padding-top:12px;
+	width:645px;
+	min-height:400px;
+	_height:400px;/*IE6 MIN-HEIGHT HACK*/
+}
+
+.pageDetails
+{
+	padding-left:26px;
+	padding-right:16px;
+	padding-top:12px;
+	width:634px;
+	min-height:400px;
+	_height:400px;/*IE6 MIN-HEIGHT HACK*/
+}
+
+.PageFontA {
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:10px;
+	color:#717171;
+	text-decoration:none;
+}
+.PageFontB {
+	display:inline;
+	padding-left:2px;
+	padding-right:2px;
+	padding-top:1px;
+	padding-bottom:1px;
+	background-color:#0C3855;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:10px;
+	color:#FFF;
+	text-decoration:none;
+}
+
+
+
+.accordionHeader
+{
+    width:226px;
+    overflow:hidden;
+    height:39px;
+}
+.accordionContent
+{
+    display:inline;
+    overflow:hidden;
+}
+
+*+html .AccordionNoContent
+{
+    background-color: White;
+    margin-top:-12px;
+}
+
+.tabClass
+{
+    display:none;
+    padding-top:20px;
+    padding-bottom:20px;
+    padding-left:20px;
+    min-height:400px;
+	_height:400px;/*IE6 MIN-HEIGHT HACK*/
+
+}
+
+.UserInfo
+{
+    width:625px;
+    text-align:left;
+}
+
+
+.table_list{ font-size:12px; }
+.table_list th{ background:#0B3953; font-weight:bold; color:#fff; height:22px; padding-left:20px; text-align:left; }
+.table_list td{ padding-left:30px;}
+
+
+.P_table{ border-collapse: collapse; font-size:12px; line-height:23px;}
+.P_table td{ border-collapse: collapse; text-align:center; padding:0 3px}
+.P_table th{background:#0B3953;border-collapse: collapse; padding:0 3px; color:#fff; height:22px; line-height:22px;}

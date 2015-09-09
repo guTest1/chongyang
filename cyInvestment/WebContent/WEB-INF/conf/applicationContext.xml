@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" " http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<!-- 重阳动态 -->
+	<bean id="dynamicCYService" class="com.guql.cy.service.impl.DynamicCYServiceImpl"></bean>
+	<bean id="dynamicCYDao" class="com.guql.cy.dao.impl.DynamicCYDaoImpl"></bean>
+	
+	<!-- 重阳问答 -->
+	<bean id="questionCYService" class="com.guql.cy.service.impl.QuestionCYServiceImpl"></bean>
+	<bean id="questionCYDao" class="com.guql.cy.dao.impl.QuestionCYDaoImpl"></bean>
+	
+	<!-- 重阳视点 -->
+	<bean id="viewCYService" class="com.guql.cy.service.impl.ViewCYServiceImpl"></bean>
+	<bean id="viewCYDao" class="com.guql.cy.dao.impl.ViewCYDaoImpl"></bean>
+	
+	<!-- 重阳推荐 -->
+	<bean id="recommendedCYService" class="com.guql.cy.service.impl.RecommendedCYServiceImpl"></bean>
+	<bean id="recommendedCYDao" class="com.guql.cy.dao.impl.RecommendedCYDaoImpl"></bean>
+</beans>
