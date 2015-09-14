@@ -46,6 +46,9 @@
         <!-- left end -->
         <!-- page1 start -->
         <div id="page01" class="rightcontent wordbox" style="display: none;">
+        	<% if(currentUser != null){ %>
+         	<a href="#" style="color:green">添加</a>
+     		<% } %>
             <div id="ctl00_cpContent_UpdatePanel1">
 				<table id="ctl00_cpContent_DataList1" cellspacing="0" border="0" style="border-collapse:collapse;">
 					<e:forEach items="${requestScope.question_page.results}" var="question">
@@ -58,6 +61,10 @@
 	                                    </td>
 	                                    <td width="120" align="right" style="font-family: Tahoma;">
 	                                        ${question.releasedate}
+	                                        <% if(currentUser != null){ %>
+		                             		<a href="#" style="color:blue">修改</a>
+		                             		<a href="#" style="color:red">删除</a>
+		                             		<% } %>
 	                                    </td>
 	                                </tr>
 	                                <tr>
@@ -118,6 +125,9 @@
         <!-- page1 end -->
         <!-- page2 start -->
         <div id="page02" class="rightcontent wordbox" style="display: none;">
+        	<% if(currentUser != null){ %>
+         	<a href="#" style="color:green">添加</a>
+     		<% } %>
             <div id="ctl00_cpContent_UpdatePanel2">
                 <table id="ctl00_cpContent_DataList2" cellspacing="0" border="0" style="border-collapse:collapse;">
 					<e:forEach items="${requestScope.view_page.results}" var="view">
@@ -130,6 +140,10 @@
 	                                    </td>
 	                                    <td width="120" align="right" style="font-family: Tahoma;">
 	                                        ${view.releasedate}
+	                                        <% if(currentUser != null){ %>
+		                             		<a href="#" style="color:blue">修改</a>
+		                             		<a href="#" style="color:red">删除</a>
+		                             		<% } %>
 	                                    </td>
 	                                </tr>
 	                                <tr>
@@ -190,6 +204,9 @@
         <!-- page2 end -->
         <!-- page3 start -->
         <div id="page03" class="rightcontent wordbox" style="display: none;">
+        	<% if(currentUser != null){ %>
+         	<a href="#" style="color:green">添加</a>
+     		<% } %>
             <div id="ctl00_cpContent_UpdatePanel3">
 				<table id="ctl00_cpContent_DataList3" cellspacing="0" border="0" style="border-collapse:collapse;">
 					<e:forEach items="${requestScope.recommended_page.results}" var="recommended">
@@ -202,6 +219,10 @@
 	                                    </td>
 	                                    <td width="120" align="right" style="font-family: Tahoma;">
 	                                        ${recommended.releasedate}
+	                                        <% if(currentUser != null){ %>
+		                             		<a href="#" style="color:blue">修改</a>
+		                             		<a href="#" style="color:red">删除</a>
+		                             		<% } %>
 	                                    </td>
 	                                </tr>
 	                                <tr>

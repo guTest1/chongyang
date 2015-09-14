@@ -35,6 +35,9 @@
             <a href="dynamiccy.asp" class="on" onclick="ClickLeftMenu('1');" id="menu01">重阳动态</a>
         </div>
         <div id="page01" class="rightcontent wordbox" style="display: none;">
+        	<% if(currentUser != null){ %>
+         	<a href="#" style="color:green">添加</a>
+     		<% } %>
             <div id="ctl00_cpContent_UpdatePanel1">
 				<table id="ctl00_cpContent_DataList1" cellspacing="0" border="0" style="border-collapse:collapse;">
 					<e:forEach items="${requestScope.page.results}" var="dynamic">
@@ -47,6 +50,10 @@
 		                             	</td>
 		                             	<td width="120" align="right" style="font-family: Tahoma;">
 		                             		${dynamic.releasedate}
+		                             		<% if(currentUser != null){ %>
+		                             		<a href="#" style="color:blue">修改</a>
+		                             		<a href="#" style="color:red">删除</a>
+		                             		<% } %>
 		                             	</td>
 		                         	</tr>
 		                         	<tr>

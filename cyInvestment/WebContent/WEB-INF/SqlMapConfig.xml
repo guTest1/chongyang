@@ -8,5 +8,6 @@ PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"
         <mapper resource="com/guql/cy/mapper/questionCY.xml" />
         <mapper resource="com/guql/cy/mapper/viewCY.xml" />
         <mapper resource="com/guql/cy/mapper/recommendedCY.xml" />
+        <mapper resource="com/guql/cy/mapper/userCY.xml" />
     </mappers>
 </configuration>

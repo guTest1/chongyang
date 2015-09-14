@@ -90,8 +90,8 @@
     	<div class="columnl" style="height:250px;">
             <span><a href="http://club.chongyang.net" target="_blank">点击进入</a></span>
             <ul>
-                <li><a href="products.aspx?k=3" class="on">认购流程</a></li>
-                <li><a href="products.aspx?k=2">网上预约</a></li>
+                <li><a href="productscy.asp?k=3" class="on">认购流程</a></li>
+                <li><a href="productscy.asp?k=2">网上预约</a></li>
                 <li><a href="aboutcy.asp?k=6">联系我们</a></li>
                 <li><a href="job.aspx">招聘中心</a></li>
             </ul>

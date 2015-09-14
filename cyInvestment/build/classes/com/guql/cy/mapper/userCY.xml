@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+	
+<mapper namespace="com.guql.cy.vo.UserVo">
+    <select id="findUser" resultType="com.guql.cy.vo.UserVo" parameterType="com.guql.cy.vo.UserVo">
+    	select
+			userid,
+			name,
+			phone,
+			fundcode,
+			idcard,
+			passport,
+			come,
+			soldiers,
+			returncard,
+			register,
+			civiliancard,
+			policecard,
+			other,
+			password
+		from
+			cy_users_t
+		<where>
+			<if test="userid != null and userid != '' ">  
+	            AND userid = #{userid} 
+	        </if>
+	        <if test="name != null and name != '' ">  
+	            AND name = #{name} 
+	        </if>
+	        <if test="phone != null and phone != '' ">  
+	            AND phone = #{phone} 
+	        </if>
+	        <if test="fundcode != null and fundcode != '' ">  
+	            AND fundcode = #{fundcode} 
+	        </if>
+	        <if test="idcard != null and idcard != '' ">  
+	            AND idcard = #{idcard} 
+	        </if>
+	        <if test="passport != null and passport != '' ">  
+	            AND passport = #{passport} 
+	        </if>
+	        <if test="come != null and come != '' ">  
+	            AND come = #{come} 
+	        </if>
+	        <if test="soldiers != null and soldiers != '' ">  
+	            AND soldiers = #{soldiers} 
+	        </if>
+	        <if test="returncard != null and returncard != '' ">  
+	            AND returncard = #{returncard} 
+	        </if>
+	        <if test="register != null and register != '' ">  
+	            AND register = #{register} 
+	        </if>
+	        <if test="civiliancard != null and civiliancard != '' ">  
+	            AND civiliancard = #{civiliancard} 
+	        </if>
+	        <if test="policecard != null and policecard != '' ">  
+	            AND policecard = #{policecard} 
+	        </if>
+	        <if test="other != null and other != '' ">  
+	            AND other = #{other} 
+	        </if>
+		</where>
+    </select>
+</mapper>

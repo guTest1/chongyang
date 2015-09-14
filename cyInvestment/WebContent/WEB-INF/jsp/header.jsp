@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.guql.cy.vo.UserVo"%>
     
 <%
 	String headerPath = request.getContextPath();
@@ -16,12 +16,23 @@
 </head>
 <body>
 	<div class="wapper header">
-		<a href="Default.aspx" class="fl">
+		<a href="homecy.asp" class="fl">
 			<img src="<%=headerBasePath %>images/Default/logo.jpg">
 		</a>
     	<table height="10px" border="0" cellspacing="0" cellpadding="0" style="margin-left: 10px;margin-right: 0px;">
         	<tr>
-            	<td width="1130" height="5"></td>
+            	<td width="1130" height="5" align="right">
+            		<% 
+            			String url = request.getRequestURI();
+            			url = url.substring(url.lastIndexOf("/") + 1, url.lastIndexOf("."));
+            			
+            			UserVo currentUser = (UserVo)session.getAttribute("currentUser");
+            			if(currentUser != null){
+            		%>
+            		<a href="exitcy.asp?url=<%= url %>&query=<%= request.getQueryString() %>">退出</a>
+            		<font style="text-align: right;color:red;margin-right:20px;"><b>欢迎<%= currentUser.getName() %></b></font>
+					<% }%>
+            	</td>
             	<td width="50" style="padding-top: 0px; text-align: right;" valign="top">
                 	<a href="homecy.asp">
                 		<font style="font-family: Arial; font-size: 12px; text-align: right;" color="#001c43"><b>中文</b></font>
@@ -72,7 +83,7 @@
                 	<i class="rightborder"></i>
                 </p>
         	</li>
-        	<li class="last"><a href="http://club.chongyang.net">客户登录</a></li>
+        	<li class="last"><a href="logincy.asp">客户登录</a></li>
     	</ul>
 	</div>
 </body>

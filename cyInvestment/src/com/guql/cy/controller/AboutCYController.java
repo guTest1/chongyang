@@ -1,8 +1,12 @@
 package com.guql.cy.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,6 +16,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,12 +25,19 @@ import com.guql.cy.page.Page;
 import com.guql.cy.service.DynamicCYService;
 import com.guql.cy.service.QuestionCYService;
 import com.guql.cy.service.RecommendedCYService;
+import com.guql.cy.service.UserCYService;
 import com.guql.cy.service.ViewCYService;
+import com.guql.cy.util.StaticDefaultValue;
+import com.guql.cy.util.VerificationCode;
 import com.guql.cy.vo.DateVo;
 import com.guql.cy.vo.DynamicVo;
+import com.guql.cy.vo.LoginReturns;
 import com.guql.cy.vo.QuestionVo;
 import com.guql.cy.vo.RecommendedVo;
+import com.guql.cy.vo.UserVo;
 import com.guql.cy.vo.ViewVo;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 @Controller
 @RequestMapping("/cy")
@@ -62,6 +74,10 @@ public class AboutCYController {
      */
     private final static String VALIDATIONFLAGTRUE = "true";
     /**
+     * 用户名
+     */
+    private final static String USERLOGIN = "currentUser";
+    /**
      * 重阳动态
      */
     @Autowired
@@ -81,6 +97,13 @@ public class AboutCYController {
      */
     @Autowired
     private RecommendedCYService recommendedCYService;
+    /**
+     * user
+     */
+    @Autowired
+    private UserCYService userCYService;
+    
+    private static String validationCode = "";
     
     /**
      * 
@@ -312,7 +335,7 @@ public class AboutCYController {
     /**
      * 
      * 功能描述: <br>
-     * 〈功能详细描述〉
+     * 〈重阳问答描述〉
      *
      * @param id
      * @param request
@@ -335,7 +358,7 @@ public class AboutCYController {
     /**
      * 
      * 功能描述: <br>
-     * 〈功能详细描述〉
+     * 〈重阳视点描述〉
      *
      * @param id
      * @param request
@@ -358,7 +381,7 @@ public class AboutCYController {
     /**
      * 
      * 功能描述: <br>
-     * 〈功能详细描述〉
+     * 〈重阳建文描述〉
      *
      * @param id
      * @param request
@@ -381,7 +404,7 @@ public class AboutCYController {
     /**
      * 
      * 功能描述: <br>
-     * 〈功能详细描述〉
+     * 〈产品与服务〉
      *
      * @param k
      * @param request
@@ -391,7 +414,8 @@ public class AboutCYController {
      * @since [产品/模块版本](可选)
      */
     @RequestMapping(value = "/productscy")
-    public ModelAndView productsCY(@RequestParam(value="k", required=false, defaultValue="1") int k, HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView productsCY(@RequestParam(value="k", required=false, defaultValue="1") int k, 
+            HttpServletRequest request, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
         //获取session
         HttpSession session = request.getSession(true);
@@ -403,6 +427,215 @@ public class AboutCYController {
             modelAndView.addObject("k", k);
         }
         return modelAndView;
+    }
+    
+    /**
+     * 
+     * 功能描述: <br>
+     * 〈用户登陆〉
+     *
+     * @param request
+     * @param response
+     * @return
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    @RequestMapping(value = "/logincy")
+    @ModelAttribute
+    public ModelAndView loginCY(LoginReturns loginReturns, HttpServletRequest request, 
+            HttpServletResponse response) {
+        ModelAndView modelAndView = new ModelAndView();
+        //获取session
+        HttpSession session = request.getSession(true);
+        UserVo user = (UserVo)session.getAttribute(USERLOGIN);
+        if(user != null){
+            modelAndView.addObject("user", user);
+            modelAndView.setViewName("userinfocy");
+        }else{
+            log.info(LOGCONTROLLERCLASS + "--------登陆");
+            String loginError = loginReturns.getReturns_msg();
+            if(!StaticDefaultValue.SUCCESS.equals(loginError) && !StringUtils.isEmpty(loginError)){
+                try {
+                    loginError = new String(loginError.getBytes("ISO8859_1"),"utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    log.error(LOGCONTROLLERCLASS,e);
+                    e.printStackTrace();
+                }
+                modelAndView.addObject("loginError", loginError);
+            }
+            modelAndView.setViewName("logincy");
+        }
+        return modelAndView;
+    }
+    
+    /**
+     * 
+     * 功能描述: <br>
+     * 〈退出登陆〉
+     *
+     * @param url
+     * @param query
+     * @param request
+     * @param response
+     * @return
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    @RequestMapping(value = "/exitcy")
+    public String exitCY(@RequestParam(value="url", required=false, defaultValue="logincy") String url, @RequestParam(value="query", required=false, defaultValue="") String query, HttpServletRequest request, 
+            HttpServletResponse response) {
+        //获取session
+        HttpSession session = request.getSession(true);
+        session.removeAttribute(USERLOGIN);
+        
+        return "redirect:/cy/" + url + ".asp?" + query;
+    }
+    
+    /**
+     * 
+     * 功能描述: <br>
+     * 〈忘记密码〉
+     *
+     * @param request
+     * @param response
+     * @return
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    @RequestMapping(value = "/forgetpwdcy")
+    public ModelAndView forgetpwdCY(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("forgetpwdcy");
+        //获取session
+        HttpSession session = request.getSession(true);
+        session.removeAttribute(USERLOGIN);
+        
+        return modelAndView;
+    }
+    
+    @RequestMapping(value = "/toLogincy")
+    public String toLoginCY(HttpServletRequest request, HttpServletResponse response) {
+        String returns = StaticDefaultValue.SUCCESS;
+        String returns_msg = StaticDefaultValue.SUCCESS_MSG;
+        int temp = 0;
+        //登陆方式
+        String longinWay = request.getParameter("longinWay");
+        //证件类型
+        String certificateType = request.getParameter("certificateType");
+        //证件号码
+        String custID = request.getParameter("custID");
+        //密码
+        String pwd = request.getParameter("pwd");
+        //验证码
+        String captcha = request.getParameter("captcha_response");
+        
+        if(temp == 0){
+            if(!validationCode.toLowerCase().equals(captcha.toLowerCase())){
+                //验证码错误
+                returns = StaticDefaultValue.CAPTCHA_ERROR;
+                returns_msg = StaticDefaultValue.CAPTCHA_ERROR_MSG;
+                temp = 1;
+            }
+        }
+        if(temp == 0){
+            if(StringUtils.isEmpty(longinWay) || StringUtils.isEmpty(certificateType)){
+                //证件类型或者登陆方式错误
+                returns = StaticDefaultValue.CUSTOMERIDTYPE_ERROR;
+                returns_msg = StaticDefaultValue.CUSTOMERIDTYPE_ERROR_MSG;
+                temp = 1;
+            }
+        }
+        if(temp == 0){
+            if(StringUtils.isEmpty(custID) || StringUtils.isEmpty(pwd)){
+                //用户名或者密码错误
+                returns = StaticDefaultValue.ACCOOUNT_ERROR;
+                returns_msg = StaticDefaultValue.ACCOOUNT_ERROR_MSG;
+                temp = 1;
+            }
+        }
+        if(temp == 0){
+            UserVo user = new UserVo();
+            user.setPassword(pwd);
+            switch (certificateType) {
+                case "idcard":
+                    user.setIdcard(custID);
+                    break;
+                case "passport":
+                    user.setPassport(custID);
+                    break;
+                case "come":
+                    user.setCome(custID);
+                    break;
+                case "soldiers":
+                    user.setSoldiers(custID);
+                    break;
+                case "returncard":
+                    user.setReturncard(custID);
+                    break;
+                case "register":
+                    user.setRegister(custID);
+                    break;
+                case "civiliancard":
+                    user.setCiviliancard(custID);
+                    break;
+                case "policecard":
+                    user.setPolicecard(custID);
+                    break;
+                case "other":
+                    user.setOther(custID);
+                    break;
+            }
+            user = userCYService.getUser(user);
+            if(user == null){
+                //用户名或者密码错误
+                returns = StaticDefaultValue.ACCOOUNT_ERROR;
+                returns_msg = StaticDefaultValue.ACCOOUNT_ERROR_MSG;
+                temp = 1;
+            }else{
+                //获取session
+                HttpSession session = request.getSession(true);
+                session.removeAttribute(USERLOGIN);
+                session.setAttribute(USERLOGIN, user);
+                returns = StaticDefaultValue.SUCCESS;
+                returns_msg = StaticDefaultValue.SUCCESS_MSG;
+            }
+        }
+        
+        String url = "redirect:/cy/logincy.asp?returns=" + returns + "&returns_msg=" + returns_msg;
+        try {
+            url = new String(url.getBytes("utf-8"),"ISO8859_1");
+        } catch (UnsupportedEncodingException e) {
+            log.error(LOGCONTROLLERCLASS, e);
+            e.printStackTrace();
+        }
+        return url;
+    }
+    
+    /**
+     * 
+     * 功能描述: <br>
+     * 〈产生验证码〉
+     *
+     * @param request
+     * @param response
+     * @see [相关类/方法](可选)
+     * @since [产品/模块版本](可选)
+     */
+    @RequestMapping(value = "/verificationCode")
+    public void getVerificationcodeCY(HttpServletRequest request, HttpServletResponse response) {
+        response.setContentType("image/jpeg");
+        //获取验证码
+        BufferedImage image = VerificationCode.getVerificationCode();
+        validationCode = VerificationCode.verificationCode;
+        ServletOutputStream outStream = null;
+        try {
+            outStream = response.getOutputStream();
+            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(outStream);
+            encoder.encode(image);
+            outStream.close();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
     
     /**

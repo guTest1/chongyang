@@ -16,4 +16,8 @@
 	<!-- 重阳推荐 -->
 	<bean id="recommendedCYService" class="com.guql.cy.service.impl.RecommendedCYServiceImpl"></bean>
 	<bean id="recommendedCYDao" class="com.guql.cy.dao.impl.RecommendedCYDaoImpl"></bean>
+	
+	<!-- user相关 -->
+	<bean id="userCYService" class="com.guql.cy.service.impl.UserCYServiceImpl"></bean>
+	<bean id="userCYDao" class="com.guql.cy.dao.impl.UserCYDaoImpl"></bean>
 </beans>
